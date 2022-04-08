@@ -1,3 +1,5 @@
+const { m } = require("framer-motion");
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -27,8 +29,11 @@ module.exports = {
         340: "340px",
         370: "370px",
         420: "420px",
+        460: "460px",
         510: "510px",
+        530: "530px",
         600: "600px",
+        650: "650px",
         685: "685px",
         800: "800px",
         "90vh": "90vh",
@@ -44,8 +49,10 @@ module.exports = {
         cartNumBg: "#e80013",
         primary: "#f5f3f3",
         activeText: "#D6230A",
+        lightTextGray: "#9ca0ab",
         gradientBg: "rgba(116, 249, 105,0.4)",
         whiteAlpha: "rgba(255,255,255,0.2)",
+        cardOverlay: "rgba(256,256,256,0.4)",
         cardColor: "#f5f5f5",
         cartBg: "#282a2c",
         cartItem: "#2e3033",
