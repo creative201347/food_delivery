@@ -14,10 +14,12 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { storage } from "../firebase.config";
-import { saveItem } from "../utils/firebaseFunctions";
+import { saveItem, getAllFoodItems } from "../utils/firebaseFunctions";
 
 import { categories } from "../utils/data";
 import { Loader } from "../components";
+import { useStateValue } from "../context/StateProvider";
+import { actionType } from "../context/reducer";
 
 const CreateContainer = () => {
   const [title, setTitle] = useState("");
@@ -29,6 +31,7 @@ const CreateContainer = () => {
   const [alertStatus, setAlertStatus] = useState("danger");
   const [msg, setMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [{ foodItems }, dispatch] = useStateValue();
 
   const uploadImage = (e) => {
     setIsLoading(true);
@@ -122,6 +125,7 @@ const CreateContainer = () => {
         setIsLoading(false);
       }, 4000);
     }
+    fetchData();
   };
 
   const clearData = () => {
@@ -132,6 +136,14 @@ const CreateContainer = () => {
     setCategory("Select Category");
   };
 
+  const fetchData = async () => {
+    await getAllFoodItems().then((data) => {
+      dispatch({
+        type: actionType.SET_FOOD_ITEMS,
+        foodItems: data,
+      });
+    });
+  };
   return (
     <div className="w-full mt-4 sm:mt-0 flex items-center justify-center">
       <div className="w-[90%] sm:h-[calc(100vh-10vh)] md:w-[50%] border border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center gap-4">
