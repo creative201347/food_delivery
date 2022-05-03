@@ -4,6 +4,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 import { HomeContainer } from ".";
 import { useStateValue } from "../context/StateProvider";
+import MenuContainer from "./MenuContainer";
 import RowContainer from "./RowContainer";
 
 const MainContainer = () => {
@@ -46,6 +47,8 @@ const MainContainer = () => {
           data={foodItems?.filter((n) => n.category === "fruits")}
         />
       </section>
+
+      <MenuContainer />
     </div>
   );
 };
