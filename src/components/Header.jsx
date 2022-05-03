@@ -15,7 +15,7 @@ const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
   const [isMenu, setIsMenu] = useState(false);
 
   const login = async () => {
@@ -41,6 +41,13 @@ const Header = () => {
     });
   };
 
+  const showCart = () => {
+    dispatch({
+      type: actionType.SET_CART_SHOW,
+      cartShow: !cartShow,
+    });
+  };
+
   return (
     <header className="fixed z-50 w-screen p-3 px-4 bg-primary md:p-6 md:px-16">
       {/* Desktop and tablet  */}
@@ -57,12 +64,13 @@ const Header = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 200 }}
           >
-            <li
+            <Link
+              to={"/"}
               className="text-base transition-all duration-100 ease-in-out cursor-pointer text-textColor hover:text-headingColor"
               onClick={() => setIsMenu(false)}
             >
               Home
-            </li>
+            </Link>
             <li
               className="text-base transition-all duration-100 ease-in-out cursor-pointer text-textColor hover:text-headingColor"
               onClick={() => setIsMenu(false)}
@@ -82,11 +90,18 @@ const Header = () => {
               Services
             </li>
           </motion.ul>
-          <div className="relative flex items-center justify-center">
-            <MdShoppingBasket className="ml-8 text-2xl text-textColor" />
-            <div className="absolute flex items-center justify-center w-5 h-5 rounded-full -top-2 -right-2 bg-cartNumBg ">
-              <p className="text-xs font-semibold text-white">2</p>
-            </div>
+          <div
+            className="relative flex items-center justify-center"
+            onClick={showCart}
+          >
+            <MdShoppingBasket className="text-2xl cursor-pointer text-textColor" />
+            {cartItems && cartItems.length > 0 && (
+              <div className="absolute flex items-center justify-center w-5 h-5 rounded-full -top-2 -right-2 bg-cartNumBg ">
+                <p className="text-xs font-semibold text-white">
+                  {cartItems.length}
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="relative">
@@ -129,11 +144,18 @@ const Header = () => {
 
       {/* Mobile  */}
       <div className="flex items-center justify-between w-full h-full md:hidden ">
-        <div className="relative flex items-center justify-center">
-          <MdShoppingBasket className="ml-8 text-2xl text-textColor" />
-          <div className="absolute flex items-center justify-center w-5 h-5 rounded-full -top-2 -right-2 bg-cartNumBg ">
-            <p className="text-xs font-semibold text-white ">2</p>
-          </div>
+        <div
+          className="relative flex items-center justify-center"
+          onClick={showCart}
+        >
+          <MdShoppingBasket className="ml-6 text-2xl text-textColor" />
+          {cartItems && cartItems.length > 0 && (
+            <div className="absolute flex items-center justify-center w-5 h-5 rounded-full -top-2 -right-2 bg-cartNumBg ">
+              <p className="text-xs font-semibold text-white">
+                {cartItems.length}
+              </p>
+            </div>
+          )}
         </div>
 
         <Link to={"/"} className="flex items-center gap-2">
@@ -174,12 +196,13 @@ const Header = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 200 }}
               >
-                <li
+                <Link
+                  to={"/"}
                   className="px-4 pt-1 text-base transition-all duration-100 ease-in-out cursor-pointer text-textColor hover:text-headingColor hover:bg-gray-200"
                   onClick={() => setIsMenu(false)}
                 >
                   Home
-                </li>
+                </Link>
                 <li
                   className="px-4 pt-1 text-base transition-all duration-100 ease-in-out cursor-pointer text-textColor hover:text-headingColor hover:bg-gray-200"
                   onClick={() => setIsMenu(false)}

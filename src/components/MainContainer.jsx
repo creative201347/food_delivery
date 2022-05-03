@@ -4,6 +4,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 import { HomeContainer } from ".";
 import { useStateValue } from "../context/StateProvider";
+import CartContainer from "./CartContainer";
 import MenuContainer from "./MenuContainer";
 import RowContainer from "./RowContainer";
 
@@ -16,7 +17,6 @@ const MainContainer = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-auto">
       <HomeContainer />
-
       <section className="w-full my-6">
         <div className="flex items-center justify-between w-full">
           <p className="relative text-2xl font-semibold capitalize transition-all duration-100 ease-in-out text-headingColor before:absolute before:rounded-lg before:content before:w-32 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600">
@@ -47,8 +47,8 @@ const MainContainer = () => {
           data={foodItems?.filter((n) => n.category === "fruits")}
         />
       </section>
-
       <MenuContainer />
+      {cartShow && <CartContainer />}
     </div>
   );
 };

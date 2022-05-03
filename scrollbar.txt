@@ -1,0 +1,14 @@
+
+
+  const [scrollValue, setScrollValue] = useState(0);
+  useEffect(() => {}, [scrollValue, cartShow]);
+    onClick={() => setScrollValue(-200)} // left
+    onClick={() => setScrollValue(200)} // right
+
+
+const rowContainer = useRef();
+  useEffect(() => {
+    rowContainer.current.scrollLeft += scrollValue;
+  }, [scrollValue]);
+ <div ref={rowContainer}>
+ </div>
